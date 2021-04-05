@@ -11,33 +11,33 @@ import cleanCSS from 'gulp-clean-css';
 const paths = {
   static: {
     src: './src/pages/**/*.html',
-    dest: './public/pages/',
+    dest: './dist/pages/',
   },
   styles: {
     src: './src/scss/**/*.scss',
-    dest: './public/css/',
+    dest: './dist/css/',
   },
   scripts: {
     src: './src/js/**/*.js',
-    dest: './public/js/',
+    dest: './dist/js/',
   },
   images: {
     src: './src/img/**/*.*',
-    dest: './public/img/',
+    dest: './dist/img/',
   },
   bootstrap: {
     scss: {
       src: './node_modules/bootstrap/dist/css/bootstrap.min.css',
-      dest: './public/css/',
+      dest: './dist/css/',
     },
     js: {
       src: './node_modules/bootstrap/dist/js/bootstrap.min.js',
-      dest: './public/js/',
+      dest: './dist/js/',
     },
   },
 };
 
-gulp.task('clean', () => del('./public'));
+gulp.task('clean', () => del('./dist'));
 
 gulp.task('static', (done) => {
   gulp.src(paths.static.src).pipe(gulp.dest(paths.static.dest));
