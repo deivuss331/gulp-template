@@ -3,14 +3,16 @@ import del from 'del';
 import sass from 'gulp-sass';
 import uglify from 'gulp-uglify-es';
 import autoprefixer from 'gulp-autoprefixer';
+import pug from 'gulp-pug';
 import rename from 'gulp-rename';
 import babel from 'gulp-babel';
 import imagemin from 'gulp-imagemin';
 import cleanCSS from 'gulp-clean-css';
 
 const paths = {
-  static: {
-    src: './src/pages/**/*.html',
+  pug: {
+    src: './src/pages/*.pug',
+    watchSrc: './src/pages/**/*.pug',
     dest: './dist/pages/',
   },
   styles: {
@@ -25,22 +27,12 @@ const paths = {
     src: './src/img/**/*.*',
     dest: './dist/img/',
   },
-  bootstrap: {
-    scss: {
-      src: './node_modules/bootstrap/dist/css/bootstrap.min.css',
-      dest: './dist/css/',
-    },
-    js: {
-      src: './node_modules/bootstrap/dist/js/bootstrap.min.js',
-      dest: './dist/js/',
-    },
-  },
 };
 
 gulp.task('clean', () => del('./dist'));
 
-gulp.task('static', (done) => {
-  gulp.src(paths.static.src).pipe(gulp.dest(paths.static.dest));
+gulp.task('pug', (done) => {
+  gulp.src(paths.pug.src).pipe(pug({})).pipe(gulp.dest(paths.pug.dest));
   done();
 });
 
@@ -97,19 +89,13 @@ gulp.task('img:build', (done) => {
   done();
 });
 
-gulp.task('bootstrap', (done) => {
-  gulp.src(paths.bootstrap.scss.src).pipe(gulp.dest(paths.bootstrap.scss.dest));
-  gulp.src(paths.bootstrap.js.src).pipe(gulp.dest(paths.bootstrap.js.dest));
-  done();
-});
-
 gulp.task('watch', () => {
-  gulp.watch(paths.static.src).on('change', gulp.series('dev'));
+  gulp.watch(paths.pug.watchSrc).on('change', gulp.series('dev'));
   gulp.watch(paths.styles.src).on('change', gulp.series('dev'));
   gulp.watch(paths.scripts.src).on('change', gulp.series('dev'));
 });
 
-gulp.task('dev', gulp.series('clean', ['static', 'sass', 'js', 'img', 'bootstrap']));
-gulp.task('build', gulp.series('clean', ['static', 'sass:build', 'js:build', 'img:build', 'bootstrap']));
+gulp.task('dev', gulp.series('clean', ['pug', 'sass', 'js', 'img']));
+gulp.task('build', gulp.series('clean', ['pug', 'sass:build', 'js:build', 'img:build']));
 
 gulp.task('default', gulp.series('dev', ['watch']));

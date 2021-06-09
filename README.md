@@ -2,15 +2,20 @@
 
 Gulp project boilerplate with set up gulp, babel, eslint and prettier
 
-## Development
+## Getting started
 
 ```bash
 npm install
-gulp
+```
+
+## Development
+
+```bash
+npm run dev
 ```
 
 ## Build
 
 ```bash
-gulp build
+npm run build
 ```

@@ -1,6 +1,6 @@
 html,
 body {
-  overflow: hidden;
+  overflow-x: hidden;
   padding: 0;
   margin: 0;
 }
@@ -8,15 +8,4 @@ body {
 * {
   box-sizing: border-box;
   font-size: 10px;
-
-  &:before,
-  &:after {
-    box-sizing: border-box;
-  }
-}
-
-button {
-  &:focus {
-    outline: none;
-  }
 }
